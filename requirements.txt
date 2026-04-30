@@ -1,0 +1,14 @@
+streamlit>=1.39.0
+polars>=1.12.0
+pandas>=2.2.0
+pyarrow>=17.0.0
+pins>=0.8.6
+rsconnect-python>=1.24.0
+openpyxl>=3.1.5
+fastparquet>=2024.5.0
+
+# Custom components for richer UX + speed
+streamlit-extras>=0.4.7
+streamlit-option-menu>=0.3.13
+plotly>=5.24.0
+# Perspective is loaded client-side via CDN — no Python package required.
