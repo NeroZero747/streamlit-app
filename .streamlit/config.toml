@@ -1,14 +1,14 @@
 [server]
 maxUploadSize = 5120
 maxMessageSize = 5120
-enableStaticServing = true
+enableStaticServing = false
 
 [browser]
 gatherUsageStats = false
 
 [theme]
 base = "dark"
-primaryColor = "#7c3aed"
+primaryColor = "#CB187D"
 backgroundColor = "#0b1020"
 secondaryBackgroundColor = "#111a33"
 textColor = "#e2e8f0"

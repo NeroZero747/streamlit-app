@@ -6,9 +6,8 @@ pins>=0.8.6
 rsconnect-python>=1.24.0
 openpyxl>=3.1.5
 fastparquet>=2024.5.0
+tornado>=6.3.3
 
-# Custom components for richer UX + speed
-streamlit-extras>=0.4.7
+# Custom components for richer UX
 streamlit-option-menu>=0.3.13
 plotly>=5.24.0
-# Perspective is loaded client-side via CDN — no Python package required.
