@@ -160,70 +160,167 @@ st.markdown(
         display: none !important;
       }
       [data-testid="stFileUploader"] section[data-testid="stFileUploaderDropzone"] {
-        border: 2px dashed rgba(203,24,125,0.25) !important;
+        border: 1.5px dashed rgba(203,24,125,0.30) !important;
         border-radius: var(--radius-md) !important;
-        background: rgba(203,24,125,0.03) !important;
-        padding: 28px 16px 22px !important;
+        background:
+          radial-gradient(ellipse 240px 120px at 50% 0%, rgba(203,24,125,0.06), transparent 70%),
+          var(--bg-elev) !important;
+        padding: 22px 16px 20px !important;
         text-align: center !important;
-        transition: border-color 0.15s ease, background 0.15s ease !important;
+        transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease !important;
         cursor: pointer !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0 !important;
       }
       [data-testid="stFileUploader"] section[data-testid="stFileUploaderDropzone"]:hover {
         border-color: var(--accent) !important;
-        background: rgba(203,24,125,0.07) !important;
+        background:
+          radial-gradient(ellipse 240px 120px at 50% 0%, rgba(203,24,125,0.12), transparent 70%),
+          var(--bg-elev) !important;
       }
+
+      /* Stack instructions vertically, centered */
+      [data-testid="stFileUploaderDropzoneInstructions"] {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        color: var(--text) !important;
+      }
+      [data-testid="stFileUploaderDropzoneInstructions"] > div {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0 !important;
+        text-align: center !important;
+        width: 100% !important;
+      }
+
+      /* Icon as a circular accent badge */
       [data-testid="stFileUploaderDropzoneInstructions"] svg {
         color: var(--accent) !important;
-        opacity: 0.7;
-        width: 28px !important;
-        height: 28px !important;
+        width: 22px !important;
+        height: 22px !important;
+        opacity: 1 !important;
         display: block !important;
-        margin: 0 auto !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        box-sizing: content-box !important;
+        background: rgba(203,24,125,0.10) !important;
+        border: 1px solid rgba(203,24,125,0.25) !important;
+        border-radius: 50% !important;
       }
+
+      /* Hide Streamlit's default primary text */
       [data-testid="stFileUploaderDropzoneInstructions"] > div > span:first-of-type {
         display: none !important;
       }
+      /* Custom title */
       [data-testid="stFileUploaderDropzoneInstructions"] > div::before {
         content: "Drop a file or click to browse";
         display: block;
-        font-size: 0.84rem;
+        font-size: 0.86rem;
         font-weight: 600;
         color: var(--text-strong);
-        margin: 8px 0 3px;
+        margin: 12px 0 4px;
         font-family: 'Inter', -apple-system, sans-serif;
+        letter-spacing: -0.005em;
       }
       [data-testid="stFileUploaderDropzoneInstructions"] small,
       [data-testid="stFileUploaderDropzoneInstructions"] span small {
-        font-size: 0.67rem !important;
+        font-size: 0.68rem !important;
         color: var(--muted-2) !important;
         font-family: 'Inter', sans-serif !important;
+        line-height: 1.5 !important;
       }
+
+      /* Browse files CTA */
       [data-testid="stFileUploaderDropzone"] button {
-        margin-top: 12px !important;
+        margin-top: 14px !important;
         background: var(--accent) !important;
         border: none !important;
         color: white !important;
         font-size: 0.78rem !important;
         font-weight: 600 !important;
         border-radius: var(--radius-sm) !important;
-        padding: 0.38rem 1.1rem !important;
+        padding: 0.42rem 1.15rem !important;
         box-shadow: 0 4px 12px rgba(203,24,125,0.35) !important;
         font-family: 'Inter', sans-serif !important;
         letter-spacing: 0.01em !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
       }
       [data-testid="stFileUploaderDropzone"] button:hover {
         background: var(--accent-hover) !important;
         box-shadow: 0 4px 16px rgba(203,24,125,0.50) !important;
+        transform: translateY(-1px);
       }
+      /* Hide duplicate icon in browse button only */
       [data-testid="stFileUploaderDropzone"] button:not([data-testid="stFileUploaderDeleteBtn"]) svg,
       [data-testid="stFileUploaderDropzone"] button:not([data-testid="stFileUploaderDeleteBtn"]) [data-testid="stIconMaterial"] {
         display: none !important;
       }
+
+      /* Uploaded file chip */
       [data-testid="stFileUploaderFile"] {
         background: var(--surface) !important;
         border: 1px solid var(--border-strong) !important;
         border-radius: var(--radius-sm) !important;
-        margin-top: 8px !important;
+        margin-top: 10px !important;
+        padding: 10px 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+      }
+      [data-testid="stFileUploaderFile"] [data-testid="stFileUploaderFileName"] {
+        font-size: 0.8rem !important;
+        font-weight: 500 !important;
+        color: var(--text-strong) !important;
+        font-family: 'Inter', sans-serif !important;
+      }
+      [data-testid="stFileUploaderFile"] small {
+        color: var(--muted-2) !important;
+        font-size: 0.68rem !important;
+      }
+      /* File icon to the left of name */
+      [data-testid="stFileUploaderFile"] [data-testid="stFileUploaderFileData"] svg,
+      [data-testid="stFileUploaderFile"] > svg {
+        color: var(--accent) !important;
+        opacity: 0.85;
+      }
+      /* Delete (×) button on file chip */
+      [data-testid="stFileUploaderDeleteBtn"] {
+        background: transparent !important;
+        border: 1px solid transparent !important;
+        color: var(--muted) !important;
+        border-radius: var(--radius-xs) !important;
+        padding: 4px !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      [data-testid="stFileUploaderDeleteBtn"]:hover {
+        background: rgba(239,68,68,0.10) !important;
+        border-color: rgba(239,68,68,0.30) !important;
+        color: #ef4444 !important;
+      }
+      [data-testid="stFileUploaderDeleteBtn"] svg,
+      [data-testid="stFileUploaderDeleteBtn"] [data-testid="stIconMaterial"] {
+        display: inline-block !important;
+        width: 18px !important;
+        height: 18px !important;
+        font-size: 18px !important;
       }
 
       /* ===== Sidebar ===== */
@@ -580,6 +677,37 @@ st.markdown(
       }
       [data-testid="stSlider"] [data-baseweb="slider"] > div:nth-child(2) > div {
         background: var(--accent) !important;
+      }
+      /* Always-visible thumb value bubble (current value above thumb) */
+      [data-testid="stSlider"] [data-testid="stThumbValue"],
+      [data-testid="stSlider"] [data-baseweb="slider"] [role="slider"] + div,
+      [data-testid="stSlider"] [data-baseweb="thumb-value"] {
+        opacity: 1 !important;
+        visibility: visible !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        color: var(--text-strong) !important;
+        font-weight: 600 !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 0.75rem !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+      }
+      /* Min / max tick labels under the track — always visible, white */
+      [data-testid="stSlider"] [data-testid="stTickBar"],
+      [data-testid="stSlider"] [data-testid="stTickBarMin"],
+      [data-testid="stSlider"] [data-testid="stTickBarMax"],
+      [data-testid="stSlider"] [data-baseweb="slider"] > div:last-child,
+      [data-testid="stSlider"] [data-baseweb="slider"] > div:last-child > div {
+        color: var(--text-strong) !important;
+        font-weight: 500 !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 0.7rem !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        opacity: 1 !important;
+        visibility: visible !important;
       }
 
       /* Toggles */
