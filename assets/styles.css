@@ -933,31 +933,21 @@ div[data-testid="stDataFrame"] {
 /* ===== Company topbar logo (top-right, fixed) ===== */
 .co-topbar-logo {
   position: fixed;
-  top: 0;
-  right: 60px;
+  top: 15px;
+  right: 20px;
   height: 52px;
   z-index: 1000;
   display: flex;
   align-items: center;
-  gap: 9px;
   padding: 0 12px;
   pointer-events: none;
   user-select: none;
 }
-.co-mark {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  filter: drop-shadow(0 2px 8px rgba(203,24,125,0.45));
+.co-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
-.co-wordmark {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--text-strong);
-  letter-spacing: -0.01em;
-}
-.co-wordmark em {
-  font-style: normal;
-  color: var(--accent);
-}
+/* legacy classes — no longer rendered */
+.co-mark, .co-wordmark, .co-wordmark em { display: none; }

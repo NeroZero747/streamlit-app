@@ -26,6 +26,9 @@ Modular layout:
 """
 from __future__ import annotations
 
+import base64
+from pathlib import Path
+
 import streamlit as st
 
 from data_explorer.hero import render_empty_state, render_hero
@@ -34,35 +37,29 @@ from data_explorer.tabs import charts_fragment, grid_fragment, schema_fragment
 from data_explorer.theme import configure_page, inject_theme
 
 
+def _logo_html() -> str:
+    """Return an <img> tag with the company logo embedded as base64, or '' if not found."""
+    assets = Path(__file__).parent / "assets"
+    for name in ("logo.png", "logo.jpg", "logo.jpeg", "logo.svg"):
+        path = assets / name
+        if path.exists():
+            mime = "image/svg+xml" if name.endswith(".svg") else f"image/{path.suffix.lstrip('.')}"
+            data = base64.b64encode(path.read_bytes()).decode()
+            return f'<img class="co-logo-img" src="data:{mime};base64,{data}" alt="logo" />'
+    return ""
+
+
 def main() -> None:
     configure_page()
     inject_theme()
 
     # ---- Company logo — top-right navbar ----------------------------------------
-    # Replace "Acme<em>Corp</em>" with your brand name; swap the SVG mark as needed.
-    st.markdown(
-        """
-        <div class="co-topbar-logo">
-          <svg class="co-mark" viewBox="0 0 20 20" fill="none"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 2L17.3 6.25V13.75L10 18L2.7 13.75V6.25L10 2Z"
-                  fill="url(#co_g)"/>
-            <path d="M7 10.5L9.2 12.7L13.3 8.3"
-                  stroke="white" stroke-width="1.6"
-                  stroke-linecap="round" stroke-linejoin="round"/>
-            <defs>
-              <linearGradient id="co_g" x1="2.7" y1="2" x2="17.3" y2="18"
-                              gradientUnits="userSpaceOnUse">
-                <stop stop-color="#cb187d"/>
-                <stop offset="1" stop-color="#a855f7"/>
-              </linearGradient>
-            </defs>
-          </svg>
-          <span class="co-wordmark">Acme<em>Corp</em></span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    logo = _logo_html()
+    if logo:
+        st.markdown(
+            f'<div class="co-topbar-logo">{logo}</div>',
+            unsafe_allow_html=True,
+        )
 
     state = render_sidebar()
 
