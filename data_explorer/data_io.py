@@ -54,3 +54,28 @@ def load_pin(server_url: str, api_key: str, pin_name: str) -> pl.DataFrame:
 @st.cache_data(show_spinner=False, ttl=300)
 def list_pins(server_url: str, api_key: str) -> list[str]:
     return list(get_connect_board(server_url, api_key).pin_list())
+
+
+@st.cache_data(show_spinner=False, ttl=300)
+def get_pin_files(server_url: str, api_key: str, pin_name: str) -> list[str]:
+    """Return the list of file names bundled inside a pin."""
+    board = get_connect_board(server_url, api_key)
+    meta = board.pin_meta(pin_name)
+    files = meta.file if isinstance(meta.file, list) else [meta.file]
+    return [f for f in files if f]  # drop any None/empty entries
+
+
+@st.cache_data(show_spinner="Loading file from pin…", max_entries=4)
+def load_pin_file(server_url: str, api_key: str, pin_name: str, file_name: str) -> pl.DataFrame:
+    """Fetch a specific file from a multi-file pin and load it as a DataFrame."""
+    import os
+    board = get_connect_board(server_url, api_key)
+    fetched = board.pin_fetch(pin_name)  # returns list of local temp paths
+    # Find the matching file among fetched paths
+    target = next(
+        (p for p in fetched if os.path.basename(p) == file_name),
+        fetched[0] if fetched else None,
+    )
+    if target is None:
+        raise FileNotFoundError(f"File '{file_name}' not found in pin '{pin_name}'")
+    return load_uploaded(file_name, open(target, "rb").read())

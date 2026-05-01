@@ -38,6 +38,32 @@ def main() -> None:
     configure_page()
     inject_theme()
 
+    # ---- Company logo — top-right navbar ----------------------------------------
+    # Replace "Acme<em>Corp</em>" with your brand name; swap the SVG mark as needed.
+    st.markdown(
+        """
+        <div class="co-topbar-logo">
+          <svg class="co-mark" viewBox="0 0 20 20" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2L17.3 6.25V13.75L10 18L2.7 13.75V6.25L10 2Z"
+                  fill="url(#co_g)"/>
+            <path d="M7 10.5L9.2 12.7L13.3 8.3"
+                  stroke="white" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="co_g" x1="2.7" y1="2" x2="17.3" y2="18"
+                              gradientUnits="userSpaceOnUse">
+                <stop stop-color="#cb187d"/>
+                <stop offset="1" stop-color="#a855f7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="co-wordmark">Acme<em>Corp</em></span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
     state = render_sidebar()
 
     if state.df is None:
@@ -47,13 +73,12 @@ def main() -> None:
     # Stash for fragment scopes
     st.session_state["_df"] = state.df
     st.session_state["_source_label"] = state.source_label
-    st.session_state["_use_filter_ui"] = state.use_filter_ui
     st.session_state["_max_render"] = state.max_render
 
     render_hero(state.df, state.source_label)
 
     tab_grid, tab_charts, tab_schema = st.tabs(
-        ["  Grid  ", "  Charts  ", "  Schema  "]
+        ["  Grid  ", "  Pivot Table  ", "  Schema  "]
     )
     with tab_grid:
         grid_fragment()

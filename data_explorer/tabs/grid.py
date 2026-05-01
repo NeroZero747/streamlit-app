@@ -19,7 +19,6 @@ from ..schema import head_pandas
 @st.fragment
 def grid_fragment() -> None:
     df: pl.DataFrame = st.session_state["_df"]
-    use_filter_ui: bool = st.session_state["_use_filter_ui"]
     max_render: int = st.session_state["_max_render"]
 
     # Choose visible columns (cheap, server-side)
@@ -32,24 +31,14 @@ def grid_fragment() -> None:
         )
     work = df.select(visible) if visible else df
 
-    if use_filter_ui:
-        filtered_pl = polars_filter_ui(work)
-        rendered = head_pandas(filtered_pl, min(max_render, filtered_pl.height))
-        st.caption(
-            f"Previewing first {len(rendered):,} of {filtered_pl.height:,} filtered rows "
-            f"(out of {work.height:,} total). Downloads export the full filtered set."
-        )
-        st.dataframe(rendered, use_container_width=True, hide_index=True, height=620)
-        export_pl = filtered_pl
-    else:
-        rendered = head_pandas(work, min(max_render, work.height))
-        st.caption(
-            f"Previewing first {len(rendered):,} of {work.height:,} rows. "
-            "Use Glide's column header menus for sort/search. "
-            "Downloads export the full dataset."
-        )
-        st.dataframe(rendered, use_container_width=True, hide_index=True, height=620)
-        export_pl = work
+    filtered_pl = polars_filter_ui(work)
+    rendered = head_pandas(filtered_pl, min(max_render, filtered_pl.height))
+    st.caption(
+        f"Previewing first {len(rendered):,} of {filtered_pl.height:,} filtered rows "
+        f"(out of {work.height:,} total). Downloads export the full filtered set."
+    )
+    st.dataframe(rendered, use_container_width=True, hide_index=True, height=620)
+    export_pl = filtered_pl
 
     # Cache built download payloads against a cheap signature of the export
     # frame so we don't re-serialize CSV/Parquet on every filter change.

@@ -10,7 +10,7 @@ _CSS_PATH = Path(__file__).resolve().parent.parent / "assets" / "styles.css"
 
 def configure_page() -> None:
     st.set_page_config(
-        page_title="⚡ Data Explorer",
+        page_title="Data Explorer",
         page_icon="⚡",
         layout="wide",
         initial_sidebar_state="expanded",

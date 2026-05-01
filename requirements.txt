@@ -1,4 +1,4 @@
-streamlit>=1.39.0
+streamlit>=1.57.0
 polars>=1.12.0
 pandas>=2.2.0
 pyarrow>=17.0.0
@@ -7,7 +7,9 @@ rsconnect-python>=1.24.0
 openpyxl>=3.1.5
 fastparquet>=2024.5.0
 tornado>=6.3.3
+pip_system_certs>=0.1.0
 
 # Custom components for richer UX
 streamlit-option-menu>=0.3.13
+streamlit-pivot>=0.5.0
 plotly>=5.24.0
